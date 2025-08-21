@@ -1,0 +1,5 @@
+user_id,prompt,text_sample,word_count,time_spent,category,difficulty,timestamp
+user_001,Tell about a time when you helped someone.,i help someone when they have no one to help,10,00:16,general,easy,2025-08-07T00:01:27.623380
+user_001,Describe your best friend and why you like them.,i loved him,3,00:06,personal,easy,2025-08-11T15:33:23.061625
+user_001,Describe your bedroom and what makes it special.,i did well,3,00:21,general,easy,2025-08-15T01:08:09.688885
+user_001,,i am writing a letter  doy,6,00:45,general,easy,2025-08-16T18:09:17.879260
