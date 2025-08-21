@@ -1,0 +1,818 @@
+{% extends "base.html" %}
+{% block title %}Learning Support Exercises{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-br from-blue-50 to-blue-100 py-16 px-4 mb-12 rounded-2xl border border-blue-200">
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-blue-900">
+            Learning Support Hub
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-blue-700">
+            Personalized exercise programs designed to strengthen learning skills and build confidence
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            <div class="bg-white border border-blue-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-2xl mb-2">📚</div>
+                <div class="text-sm font-medium text-blue-800">Reading Skills</div>
+            </div>
+            <div class="bg-white border border-blue-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-2xl mb-2">🔢</div>
+                <div class="text-sm font-medium text-blue-800">Math Skills</div>
+            </div>
+            <div class="bg-white border border-blue-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-2xl mb-2">✍️</div>
+                <div class="text-sm font-medium text-blue-800">Writing Skills</div>
+            </div>
+            <div class="bg-white border border-blue-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-2xl mb-2">🤸</div>
+                <div class="text-sm font-medium text-blue-800">Motor Skills</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation Tabs -->
+<div class="flex justify-center mb-8">
+    <div class="bg-white rounded-lg border border-blue-200 p-1 shadow-sm">
+        <button onclick="showSection('exercises')" id="btn-exercises" class="section-btn active">
+            <span class="text-xl mr-2">🏃‍♂️</span>Exercises
+        </button>
+        <button onclick="showSection('learn-more')" id="btn-learn-more" class="section-btn">
+            <span class="text-xl mr-2">📖</span>Learn More
+        </button>
+    </div>
+</div>
+
+<!-- Exercises Section -->
+<div id="exercises-section" class="section-content">
+    <!-- Filter Tabs -->
+    <div class="flex flex-wrap justify-center mb-8 gap-2">
+        <button onclick="showCategory('all')" id="btn-all" class="filter-btn active">
+            <span class="text-xl mr-2">🌟</span>All Exercises
+        </button>
+        <button onclick="showCategory('dyslexia')" id="btn-dyslexia" class="filter-btn">
+            <span class="text-xl mr-2">📚</span>Dyslexia
+        </button>
+        <button onclick="showCategory('dyscalculia')" id="btn-dyscalculia" class="filter-btn">
+            <span class="text-xl mr-2">🔢</span>Dyscalculia
+        </button>
+        <button onclick="showCategory('dysgraphia')" id="btn-dysgraphia" class="filter-btn">
+            <span class="text-xl mr-2">✍️</span>Dysgraphia
+        </button>
+        <button onclick="showCategory('dyspraxia')" id="btn-dyspraxia" class="filter-btn">
+            <span class="text-xl mr-2">🤸</span>Dyspraxia
+        </button>
+    </div>
+
+    <!-- Exercise Cards Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        
+        <!-- Dyslexia Exercises -->
+        <div class="exercise-card dyslexia" data-category="dyslexia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-500 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Phonemic Awareness</h3>
+                            <p class="text-blue-100 text-sm">Sound Recognition Training</p>
+                        </div>
+                        <div class="text-2xl">🎵</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" title="Phonemic Awareness Exercise" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Beginner</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 15 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Develop the ability to identify and manipulate individual sounds in words through interactive audio activities.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Improves sound discrimination
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Builds phonological awareness
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card dyslexia" data-category="dyslexia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-500 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Reading Fluency</h3>
+                            <p class="text-blue-100 text-sm">Speed & Accuracy Training</p>
+                        </div>
+                        <div class="text-2xl">📖</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" title="Reading Fluency Practice" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Intermediate</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 20 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Systematic practice to improve reading speed while maintaining comprehension.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Increases reading speed
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Builds confidence
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card dyslexia" data-category="dyslexia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-500 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Sight Words</h3>
+                            <p class="text-blue-100 text-sm">High-Frequency Word Recognition</p>
+                        </div>
+                        <div class="text-2xl">👁️</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID3" title="Sight Word Recognition" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">All Levels</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 10 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Master commonly used words through visual recognition techniques.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Instant word recognition
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Improves fluency
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dyscalculia Exercises -->
+        <div class="exercise-card dyscalculia" data-category="dyscalculia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-600 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Number Sense</h3>
+                            <p class="text-blue-100 text-sm">Quantity & Magnitude Understanding</p>
+                        </div>
+                        <div class="text-2xl">🔢</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID6" title="Number Sense Activities" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Foundation</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 18 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Develop intuitive understanding of numbers and mathematical relationships.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Builds number intuition
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Strengthens math foundation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card dyscalculia" data-category="dyscalculia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-600 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Visual Math</h3>
+                            <p class="text-blue-100 text-sm">Concrete Learning Strategies</p>
+                        </div>
+                        <div class="text-2xl">👀</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID10" title="Visual Math Strategies" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Advanced</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 25 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Transform abstract math concepts into visual representations.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Makes math concrete
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Improves problem-solving
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dysgraphia Exercises -->
+        <div class="exercise-card dysgraphia" data-category="dysgraphia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-700 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Fine Motor Skills</h3>
+                            <p class="text-blue-100 text-sm">Hand Strength & Dexterity</p>
+                        </div>
+                        <div class="text-2xl">✋</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID12" title="Fine Motor Skills" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Foundation</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 12 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Strengthen hand muscles through targeted exercises and activities.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Strengthens hand muscles
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Prepares for writing
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card dysgraphia" data-category="dysgraphia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-700 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Letter Formation</h3>
+                            <p class="text-blue-100 text-sm">Proper Writing Mechanics</p>
+                        </div>
+                        <div class="text-2xl">📝</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID13" title="Letter Formation" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Beginner</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 16 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Learn correct letter formation through step-by-step instruction.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Correct letter shapes
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Legible handwriting
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dyspraxia Exercises -->
+        <div class="exercise-card dyspraxia" data-category="dyspraxia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-800 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Balance & Coordination</h3>
+                            <p class="text-blue-100 text-sm">Core Stability Training</p>
+                        </div>
+                        <div class="text-2xl">⚖️</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID17" title="Balance & Movement" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Progressive</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 22 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Develop core strength and postural control through balance activities.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Improves balance
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Enhances body awareness
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-card dyspraxia" data-category="dyspraxia">
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-800 text-white p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold">Hand-Eye Coordination</h3>
+                            <p class="text-blue-100 text-sm">Visual-Motor Integration</p>
+                        </div>
+                        <div class="text-2xl">🎯</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID18" title="Hand-Eye Coordination" frameborder="0" allowfullscreen class="w-full h-40 rounded-lg mb-4"></iframe>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Intermediate</span>
+                            <span class="ml-2 text-gray-500 text-sm">⏱️ 18 minutes</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Integrate visual processing with motor responses through targeted activities.
+                        </p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Visual tracking skills
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                            Motor precision
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="mt-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-8 text-white text-center">
+        <h2 class="text-3xl font-bold mb-4">Track Your Progress</h2>
+        <p class="text-lg mb-6 text-blue-100">
+            Consistent practice leads to remarkable improvements. Every session builds stronger foundations.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
+                <div class="text-2xl font-bold">0</div>
+                <div class="text-sm">Sessions Completed</div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
+                <div class="text-2xl font-bold">0</div>
+                <div class="text-sm">Hours Practiced</div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
+                <div class="text-2xl font-bold">0</div>
+                <div class="text-sm">Skills Improved</div>
+            </div>
+            <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
+                <div class="text-2xl font-bold">0</div>
+                <div class="text-sm">Achievements</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Learn More Section -->
+<div id="learn-more-section" class="section-content hidden">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-blue-900 mb-4">Understanding Cognitive and Learning Disabilities</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Learn about different types of learning disabilities, their characteristics, and how they affect daily life. 
+                Understanding these conditions is the first step toward effective support and intervention.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Dyslexia Information -->
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-500 text-white p-6">
+                    <div class="flex items-center">
+                        <div class="text-4xl mr-4">📚</div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Dyslexia</h3>
+                            <p class="text-blue-100">Reading and Language Processing</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">What is Dyslexia?</h4>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Dyslexia is a specific learning disability that affects reading fluency, decoding, and comprehension. 
+                            It is neurobiological in origin and characterized by difficulties with accurate and/or fluent word 
+                            recognition and poor spelling abilities.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Signs & Symptoms</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty reading single words in isolation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems with phonological processing (sound-letter relationships)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Slow, inaccurate reading that requires excessive effort</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty with spelling and written expression</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems with reading comprehension</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Impact on Daily Life</h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dyslexia affects academic performance, self-esteem, and can impact career choices. However, 
+                            with proper support and intervention, individuals with dyslexia can become successful readers 
+                            and achieve their goals. Many successful entrepreneurs, artists, and professionals have dyslexia.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-2">Interesting Fact</h4>
+                        <p class="text-blue-700 text-sm">
+                            Dyslexia affects approximately 5-10% of the population and is often hereditary. 
+                            People with dyslexia often have strengths in creativity, problem-solving, and visual thinking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dyscalculia Information -->
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-600 text-white p-6">
+                    <div class="flex items-center">
+                        <div class="text-4xl mr-4">🔢</div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Dyscalculia</h3>
+                            <p class="text-blue-100">Mathematical Processing</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">What is Dyscalculia?</h4>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Dyscalculia is a specific learning disability that affects a person's ability to understand 
+                            numbers and learn math facts. It affects number sense, mathematical reasoning, and the 
+                            ability to learn math concepts and procedures.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Signs & Symptoms</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty understanding number concepts and relationships</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems with basic math facts (addition, subtraction, multiplication)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Trouble with math reasoning and problem-solving</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty with time concepts and money management</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems with spatial awareness and directions</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Impact on Daily Life</h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dyscalculia can affect everyday activities like handling money, telling time, measuring 
+                            ingredients while cooking, and understanding distances. It may also impact academic 
+                            performance in math-related subjects and career choices involving numerical skills.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-2">Interesting Fact</h4>
+                        <p class="text-blue-700 text-sm">
+                            Dyscalculia affects approximately 3-6% of the population. Many people with dyscalculia 
+                            excel in language arts, creative fields, and areas that don't heavily rely on numerical processing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dysgraphia Information -->
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-700 text-white p-6">
+                    <div class="flex items-center">
+                        <div class="text-4xl mr-4">✍️</div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Dysgraphia</h3>
+                            <p class="text-blue-100">Writing and Fine Motor Skills</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">What is Dysgraphia?</h4>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Dysgraphia is a learning disability that affects writing abilities. It can impact the 
+                            physical act of writing, spelling, and the organization of thoughts on paper. It often 
+                            involves problems with fine motor skills and hand-eye coordination.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Signs & Symptoms</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Illegible handwriting with poor letter formation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Inconsistent spacing between words and letters</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty holding and controlling writing tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems organizing thoughts on paper</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Writing fatigue and slow writing speed</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Impact on Daily Life</h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dysgraphia can significantly impact academic performance, especially in assignments requiring 
+                            extensive writing. It may affect note-taking, test performance, and self-expression through 
+                            writing. However, with accommodations like typing and assistive technology, individuals can succeed.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-2">Interesting Fact</h4>
+                        <p class="text-blue-700 text-sm">
+                            Dysgraphia often co-occurs with other learning disabilities. Many successful people use 
+                            technology and alternative methods to overcome writing challenges while excelling in their fields.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dyspraxia Information -->
+            <div class="bg-white rounded-lg border border-blue-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                <div class="bg-blue-800 text-white p-6">
+                    <div class="flex items-center">
+                        <div class="text-4xl mr-4">🤸</div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Dyspraxia</h3>
+                            <p class="text-blue-100">Movement and Coordination</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">What is Dyspraxia?</h4>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Dyspraxia, also known as Developmental Coordination Disorder (DCD), is a neurological 
+                            condition that affects movement and coordination. It impacts the planning and execution 
+                            of motor skills and can affect both gross and fine motor abilities.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Signs & Symptoms</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Poor balance and coordination</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty with fine motor tasks (buttoning, tying shoes)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Problems with spatial awareness and organization</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Challenges with sports and physical activities</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3"></span>
+                                <span class="text-gray-600">Difficulty following multi-step instructions</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Impact on Daily Life</h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dyspraxia can affect daily activities like dressing, eating, writing, and participating in 
+                            sports. It may impact academic performance, social interactions, and self-confidence. 
+                            However, with proper support and practice, individuals can develop coping strategies and succeed.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-blue-800 mb-2">Interesting Fact</h4>
+                        <p class="text-blue-700 text-sm">
+                            Dyspraxia affects approximately 2-6% of the population. People with dyspraxia often have 
+                            strong verbal skills, creativity, and strategic thinking abilities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="mt-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 border border-blue-200">
+            <h3 class="text-2xl font-bold text-blue-900 mb-4 text-center">Getting Help and Support</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl mb-3">🔍</div>
+                    <h4 class="text-lg font-semibold text-blue-800 mb-2">Early Identification</h4>
+                    <p class="text-blue-700 text-sm">Early assessment and intervention can make a significant difference in outcomes and quality of life.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-3">👥</div>
+                    <h4 class="text-lg font-semibold text-blue-800 mb-2">Professional Support</h4>
+                    <p class="text-blue-700 text-sm">Work with specialized educators, therapists, and healthcare professionals for comprehensive support.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-3">💪</div>
+                    <h4 class="text-lg font-semibold text-blue-800 mb-2">Strengths-Based Approach</h4>
+                    <p class="text-blue-700 text-sm">Focus on individual strengths and talents while addressing challenges through targeted interventions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Section switching
+function showSection(section) {
+    // Update button states
+    document.querySelectorAll('.section-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById('btn-' + section).classList.add('active');
+    
+    // Show/hide sections
+    document.querySelectorAll('.section-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    document.getElementById(section + '-section').classList.remove('hidden');
+}
+
+// Category filtering for exercises
+function showCategory(category) {
+    // Update button states
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById('btn-' + category).classList.add('active');
+    
+    // Show/hide cards
+    document.querySelectorAll('.exercise-card').forEach(card => {
+        if (category === 'all') {
+            card.classList.remove('hidden');
+        } else {
+            if (card.dataset.category === category) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        }
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    showSection('exercises');
+    showCategory('all');
+});
+</script>
+
+<style>
+.section-btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center;
+    color: #6b7280;
+}
+
+.section-btn.active {
+    @apply bg-blue-500 text-white shadow-sm;
+}
+
+.section-btn:hover:not(.active) {
+    @apply bg-gray-100;
+}
+
+.filter-btn {
+    @apply px-4 py-2 rounded-lg font-medium border border-blue-200 bg-white text-blue-600 hover:bg-blue-50 transition-all duration-200 flex items-center;
+}
+
+.filter-btn.active {
+    @apply bg-blue-500 text-white border-blue-500;
+}
+
+.exercise-card {
+    @apply transform transition-all duration-300;
+}
+
+.exercise-card:hover {
+    @apply scale-105;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-content {
+    animation: fadeInUp 0.5s ease forwards;
+}
+</style>
+{% endblock %}

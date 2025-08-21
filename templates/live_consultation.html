@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}Live Consultation - Cogno Solutions{% endblock %}
+
+{% block content %}
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem 0;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        
+        <!-- Header Section -->
+        <div style="text-align: center; margin-bottom: 3rem; color: white;">
+            <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">
+                <i class="fas fa-video" style="margin-right: 1rem; color: #60a5fa;"></i>
+                Live Consultation
+            </h1>
+            <p style="font-size: 1.3rem; opacity: 0.9;">Connect with our expert doctors for personalized learning disability support</p>
+        </div>
+
+        <!-- Doctor Selection Section -->
+        <div style="background: white; border-radius: 20px; padding: 2rem; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
+            <h3 style="text-align: center; font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 2rem;">
+                <i class="fas fa-user-md" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+                Choose Your Doctor
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                {% for doctor in doctors %}
+                <div class="doctor-card" data-doctor-id="{{ doctor.id }}" style="border: 2px solid #e2e8f0; border-radius: 15px; padding: 1.5rem; cursor: pointer; transition: all 0.3s ease; text-align: center;" onmouseover="this.style.borderColor='#3b82f6'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='translateY(0)'">
+                    <img src="{{ doctor.image }}" alt="{{ doctor.name }}" style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem; object-fit: cover;">
+                    <h4 style="color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">{{ doctor.name }}</h4>
+                    <p style="color: #3b82f6; font-weight: 500; margin-bottom: 0.5rem;">{{ doctor.specialization }}</p>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 0.5rem;">{{ doctor.experience }} experience</p>
+                    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <div style="color: #fbbf24;">
+                            {% for i in range(5) %}
+                                {% if i < doctor.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <span style="margin-left: 0.5rem; color: #64748b; font-size: 0.9rem;">{{ doctor.rating }}</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1rem;">
+                        <button onclick="sendWhatsApp('{{ doctor.whatsapp }}', '{{ doctor.name }}')" style="background: #25d366; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s ease;" onmouseover="this.style.background='#128c7e'" onmouseout="this.style.background='#25d366'">
+                            <i class="fab fa-whatsapp" style="margin-right: 0.3rem;"></i>WhatsApp
+                        </button>
+                        <button onclick="sendEmail('{{ doctor.email }}', '{{ doctor.name }}')" style="background: #3b82f6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s ease;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+                            <i class="fas fa-envelope" style="margin-right: 0.3rem;"></i>Email
+                        </button>
+                    </div>
+                    <button onclick="selectDoctor('{{ doctor.id }}', '{{ doctor.name }}', '{{ doctor.email }}', '{{ doctor.whatsapp }}', '{{ doctor.specialization }}')" style="background: #10b981; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; transition: all 0.3s ease;" onmouseover="this.style.background='#059669'" onmouseout="this.style.background='#10b981'">
+                        Select Doctor
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Selected Doctor Display -->
+        <div id="selectedDoctorInfo" style="background: white; border-radius: 20px; padding: 2rem; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); display: none;">
+            <div style="text-align: center;">
+                <h3 style="color: #1e293b; font-weight: 700; margin-bottom: 1rem;">
+                    <i class="fas fa-check-circle" style="color: #10b981; margin-right: 0.5rem;"></i>
+                    Selected Doctor
+                </h3>
+                <div id="selectedDoctorDetails" style="color: #64748b; margin-bottom: 1rem;"></div>
+            </div>
+        </div>
+
+        <!-- Consultation Schedule Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            
+            <!-- Morning Schedule -->
+            <div style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                    <div style="background: linear-gradient(135deg, #fbbf24, #f59e0b); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                        <i class="fas fa-sun" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.5rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Morning Session</h3>
+                        <p style="color: #64748b; font-weight: 500;">{{ schedules.morning.time }}</p>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: #1e293b; margin-bottom: 1rem; font-weight: 600;">Available Time Slots:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                        {% for slot in schedules.morning.slots %}
+                        <button onclick="selectSlot('{{ slot }}')" style="background: #f1f5f9; border: 2px solid #e2e8f0; padding: 0.75rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 500;" onmouseover="this.style.background='#3b82f6'; this.style.color='white'; this.style.borderColor='#3b82f6'" onmouseout="this.style.background='#f1f5f9'; this.style.color='#1e293b'; this.style.borderColor='#e2e8f0'">
+                            {{ slot }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <p style="color: #1e40af; font-size: 0.9rem; margin: 0;">
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                        Available on: {{ schedules.morning.available_days | join(', ') }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Afternoon Schedule -->
+            <div style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                    <div style="background: linear-gradient(135deg, #06b6d4, #0891b2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                        <i class="fas fa-cloud-sun" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.5rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Afternoon Session</h3>
+                        <p style="color: #64748b; font-weight: 500;">{{ schedules.afternoon.time }}</p>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="color: #1e293b; margin-bottom: 1rem; font-weight: 600;">Available Time Slots:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                        {% for slot in schedules.afternoon.slots %}
+                        <button onclick="selectSlot('{{ slot }}')" style="background: #f1f5f9; border: 2px solid #e2e8f0; padding: 0.75rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 500;" onmouseover="this.style.background='#06b6d4'; this.style.color='white'; this.style.borderColor='#06b6d4'" onmouseout="this.style.background='#f1f5f9'; this.style.color='#1e293b'; this.style.borderColor='#e2e8f0'">
+                            {{ slot }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div style="background: #ecfeff; padding: 1rem; border-radius: 8px; border-left: 4px solid #06b6d4;">
+                    <p style="color: #0891b2; font-size: 0.9rem; margin: 0;">
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                        Available on: {{ schedules.afternoon.available_days | join(', ') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div style="background: white; border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
+            <h3 style="text-align: center; font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 2rem;">What You Get</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="text-align: center;">
+                    <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-user-md" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h4 style="color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Expert Doctors</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Certified specialists in learning disabilities</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: linear-gradient(135deg, #10b981, #047857); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-video" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h4 style="color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">HD Video Calls</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Crystal clear video consultations</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: linear-gradient(135deg, #f59e0b, #d97706); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-clipboard-list" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h4 style="color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Personalized Plan</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Customized treatment recommendations</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: linear-gradient(135deg, #ef4444, #dc2626); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-clock" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h4 style="color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">30-Min Sessions</h4>
+                    <p style="color: #64748b; font-size: 0.9rem;">Focused consultation time</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Slot Display -->
+        <div id="selectedSlotInfo" style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); display: none;">
+            <div style="text-align: center;">
+                <h3 style="color: #1e293b; font-weight: 700; margin-bottom: 1rem;">Consultation Booking</h3>
+                <p style="color: #64748b; margin-bottom: 1rem;">You have selected: <span id="selectedTime" style="color: #3b82f6; font-weight: 600;"></span></p>
+                <p style="color: #64748b; margin-bottom: 2rem;">Doctor: <span id="selectedDoctorName" style="color: #3b82f6; font-weight: 600;"></span></p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                    <button id="sendInviteBtn" onclick="sendMeetingInvite()" style="background: #f59e0b; color: white; padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#d97706'" onmouseout="this.style.background='#f59e0b'">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                        Send Email Invite
+                    </button>
+                    <button onclick="sendWhatsAppInvite()" style="background: #25d366; color: white; padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#128c7e'" onmouseout="this.style.background='#25d366'">
+                        <i class="fab fa-whatsapp" style="margin-right: 0.5rem;"></i>
+                        WhatsApp Invite
+                    </button>
+                </div>
+                <button id="startConsultationBtn" onclick="startConsultation()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-video" style="margin-right: 0.5rem;"></i>
+                    Start Video Consultation
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let selectedSlotTime = '';
+let selectedDoctor = null;
+
+function selectDoctor(id, name, email, whatsapp, specialization) {
+    selectedDoctor = { id, name, email, whatsapp, specialization };
+    
+    // Update selected doctor display
+    document.getElementById('selectedDoctorDetails').innerHTML = `
+        <strong>${name}</strong><br>
+        <span style="color: #3b82f6;">${specialization}</span>
+    `;
+    document.getElementById('selectedDoctorInfo').style.display = 'block';
+    
+    // Update slot info if already selected
+    if (selectedSlotTime) {
+        document.getElementById('selectedDoctorName').textContent = name;
+    }
+    
+    // Highlight selected doctor card
+    document.querySelectorAll('.doctor-card').forEach(card => {
+        card.style.borderColor = '#e2e8f0';
+        card.style.background = 'white';
+    });
+    
+    const selectedCard = document.querySelector(`[data-doctor-id="${id}"]`);
+    selectedCard.style.borderColor = '#10b981';
+    selectedCard.style.background = '#f0fdf4';
+    
+    // Send selection to backend
+    fetch('/select-doctor', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            doctor_id: id,
+            doctor_name: name,
+            doctor_email: email,
+            doctor_whatsapp: whatsapp,
+            doctor_specialization: specialization
+        })
+    });
+}
+
+function selectSlot(time) {
+    if (!selectedDoctor) {
+        alert('Please select a doctor first!');
+        return;
+    }
+    
+    selectedSlotTime = time;
+    document.getElementById('selectedTime').textContent = time;
+    document.getElementById('selectedDoctorName').textContent = selectedDoctor.name;
+    document.getElementById('selectedSlotInfo').style.display = 'block';
+    
+    document.getElementById('selectedSlotInfo').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+    });
+}
+
+function sendMeetingInvite() {
+    if (!selectedDoctor || !selectedSlotTime) {
+        alert('Please select both doctor and time slot!');
+        return;
+    }
+    
+    const roomId = `consultation_${Date.now()}`;
+    
+    fetch('/send-consultation-invite', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            doctor_email: selectedDoctor.email,
+            doctor_name: selectedDoctor.name,
+            slot_time: selectedSlotTime,
+            room_id: roomId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Meeting invitation sent successfully!');
+        } else {
+            alert('Failed to send invitation: ' + data.message);
+        }
+    });
+}
+
+function sendWhatsApp(phone, doctorName) {
+    const message = `Hello Dr. ${doctorName}, I would like to schedule a consultation with you through Cogno Solutions platform.`;
+    const whatsappUrl = `https://wa.me/${phone.replace('+', '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function sendWhatsAppInvite() {
+    if (!selectedDoctor || !selectedSlotTime) {
+        alert('Please select both doctor and time slot!');
+        return;
+    }
+    
+    const message = `Hello Dr. ${selectedDoctor.name}, I have scheduled a video consultation for ${selectedSlotTime}. Please join the meeting at: ${window.location.origin}/start-consultation/${encodeURIComponent(selectedSlotTime)}`;
+    const whatsappUrl = `https://wa.me/${selectedDoctor.whatsapp.replace('+', '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+function sendEmail(email, doctorName) {
+    const subject = `Consultation Request - Cogno Solutions`;
+    const body = `Hello Dr. ${doctorName},\n\nI would like to schedule a consultation with you through the Cogno Solutions platform.\n\nBest regards`;
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+}
+
+function startConsultation() {
+    if (selectedSlotTime && selectedDoctor) {
+        window.location.href = `/start-consultation/${encodeURIComponent(selectedSlotTime)}`;
+    }
+}
+</script>
+{% endblock %}

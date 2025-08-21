@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}Video Consultation - Cogno Solutions{% endblock %}
+
+{% block content %}
+<div style="background: #1e293b; min-height: 100vh; padding: 1rem;">
+    <div style="max-width: 1400px; margin: 0 auto;">
+        
+        <!-- Header -->
+        <div style="background: white; border-radius: 15px; padding: 1rem 2rem; margin-bottom: 1rem; display: flex; justify-content: between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <div>
+                <h2 style="color: #1e293b; font-weight: 600; margin: 0;">
+                    <i class="fas fa-video" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+                    Live Consultation - {{ slot_time }}
+                </h2>
+                <p style="color: #64748b; margin: 0; font-size: 0.9rem;">Room ID: {{ room_id }}</p>
+            </div>
+            <button onclick="endConsultation()" style="background: #ef4444; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                <i class="fas fa-phone-slash" style="margin-right: 0.5rem;"></i>End Call
+            </button>
+        </div>
+
+        <!-- Video Container -->
+        <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.2); position: relative;">
+            <div id="jitsi-container" style="height: 70vh; width: 100%;"></div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div style="background: white; border-radius: 15px; padding: 1.5rem; margin-top: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                    <i class="fas fa-microphone" style="font-size: 1.5rem; color: #10b981; margin-bottom: 0.5rem;"></i>
+                    <p style="margin: 0; font-weight: 600; color: #1e293b;">Audio Quality</p>
+                    <p style="margin: 0; font-size: 0.8rem; color: #64748b;">Clear</p>
+                </div>
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                    <i class="fas fa-video" style="font-size: 1.5rem; color: #3b82f6; margin-bottom: 0.5rem;"></i>
+                    <p style="margin: 0; font-weight: 600; color: #1e293b;">Video Quality</p>
+                    <p style="margin: 0; font-size: 0.8rem; color: #64748b;">HD</p>
+                </div>
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                    <i class="fas fa-clock" style="font-size: 1.5rem; color: #f59e0b; margin-bottom: 0.5rem;"></i>
+                    <p style="margin: 0; font-weight: 600; color: #1e293b;">Session Time</p>
+                    <p style="margin: 0; font-size: 0.8rem; color: #64748b;" id="sessionTimer">00:00</p>
+                </div>
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                    <i class="fas fa-user-md" style="font-size: 1.5rem; color: #8b5cf6; margin-bottom: 0.5rem;"></i>
+                    <p style="margin: 0; font-weight: 600; color: #1e293b;">Doctor Status</p>
+                    <p style="margin: 0; font-size: 0.8rem; color: #64748b;" id="doctorStatus">Waiting...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 15px; padding: 2rem; margin-top: 1rem; color: white;">
+            <h3 style="margin: 0 0 1rem 0; font-weight: 600;">
+                <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                Consultation Guidelines
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 500;">Before we start:</p>
+                    <ul style="margin: 0; padding-left: 1.2rem; opacity: 0.9;">
+                        <li>Ensure good lighting on your face</li>
+                        <li>Check your microphone and camera</li>
+                        <li>Have your medical reports ready</li>
+                    </ul>
+                </div>
+                <div>
+                    <p style="margin: 0 0 0.5rem 0; font-weight: 500;">During consultation:</p>
+                    <ul style="margin: 0; padding-left: 1.2rem; opacity: 0.9;">
+                        <li>Speak clearly and at normal pace</li>
+                        <li>Ask questions freely</li>
+                        <li>Take notes if needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jitsi Meet API -->
+<script src='https://meet.jit.si/external_api.js'></script>
+
+<script>
+let api;
+let startTime = new Date();
+
+// Initialize Jitsi Meet
+function initializeJitsi() {
+    const domain = 'meet.jit.si';
+    const options = {
+        roomName: '{{ room_id }}',
+        width: '100%',
+        height: '100%',
+        parentNode: document.querySelector('#jitsi-container'),
+        configOverwrite: {
+            startAudioOnly: false,
+            enableWelcomePage: false,
+            prejoinPageEnabled: false,
+            disableModeratorIndicator: true,
+            startScreenSharing: false,
+            enableEmailInStats: false
+        },
+        interfaceConfigOverwrite: {
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+            DISABLE_PRESENCE_STATUS: true,
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            TOOLBAR_BUTTONS: [
+                'microphone', 'camera', 'chat', 'hangup',
+                'profile', 'fullscreen', 'fodeviceselection'
+            ]
+        },
+        userInfo: {
+            displayName: 'Patient - {{ session.get("username", "User") }}'
+        }
+    };
+
+    api = new JitsiMeetExternalAPI(domain, options);
+
+    // Event listeners
+    api.addEventListener('videoConferenceJoined', function () {
+        console.log('Video conference joined');
+        document.getElementById('doctorStatus').textContent = 'Connected';
+        updateTimer();
+    });
+
+    api.addEventListener('participantJoined', function (participant) {
+        console.log('Participant joined:', participant);
+        if (participant.displayName && participant.displayName.includes('Doctor')) {
+            document.getElementById('doctorStatus').textContent = 'Doctor Online';
+        }
+    });
+
+    api.addEventListener('participantLeft', function (participant) {
+        console.log('Participant left:', participant);
+        if (participant.displayName && participant.displayName.includes('Doctor')) {
+            document.getElementById('doctorStatus').textContent = 'Doctor Offline';
+        }
+    });
+
+    api.addEventListener('videoConferenceLeft', function () {
+        console.log('Video conference left');
+        endConsultation();
+    });
+}
+
+// Timer function
+function updateTimer() {
+    setInterval(function() {
+        const now = new Date();
+        const diff = Math.floor((now - startTime) / 1000);
+        const minutes = Math.floor(diff / 60);
+        const seconds = diff % 60;
+        document.getElementById('sessionTimer').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+// End consultation
+function endConsultation() {
+    if (api) {
+        api.dispose();
+    }
+    if (confirm('Are you sure you want to end the consultation?')) {
+        window.location.href = '/live-consultation';
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeJitsi();
+});
+
+// Handle page unload
+window.addEventListener('beforeunload', function() {
+    if (api) {
+        api.dispose();
+    }
+});
+</script>
+{% endblock %}
